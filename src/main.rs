@@ -102,7 +102,7 @@ fn parse_write(command: &str) -> Result<Vec<u8>> {
             parts[3].parse::<u64>(),
         ) {
             // 0x07 corresponds to CFGW message
-            let mut data = vec![0x07, node_id, param_index];
+            let mut data = vec![ArcaneCode::CFGW as u8, node_id, param_index];
 
             let mut value_bytes = param_value.to_be_bytes().to_vec();
             value_bytes.retain(|&x| x != 0); // Remove leading zeros
@@ -130,4 +130,8 @@ fn parse_write(command: &str) -> Result<Vec<u8>> {
     } else {
         return Err(anyhow::anyhow!("Invalid command format"));
     }
+}
+
+enum ArcaneCode {
+    CFGW = 0x7,
 }
