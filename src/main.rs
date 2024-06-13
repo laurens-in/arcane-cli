@@ -1,6 +1,5 @@
 use std::{
     io::{self, Write},
-    process::exit,
     thread,
     time::Duration,
 };
@@ -11,8 +10,6 @@ use anyhow::{Context, Result};
 
 fn main() -> Result<()> {
     let term = Term::stdout();
-
-    println!("parsed command: {:#04x?}", parse_write("write 1 2 567")?);
 
     let ports = serialport::available_ports().context("No ports found!")?;
 
